@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  /* margin-bottom: 20px; */
+}
+
+.logo {
+  font-style: italic;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 2.5rem;
+  color: var(--sandy);
+}
+
+.header-btns {
+  display: flex;
+  gap: 10px;
+}
+
+.header-post,
+.header-loginout {
+  background-color: var(--sandy);
+  padding: 0.5rem 1rem;
+  border-radius: 1vmax;
+}
