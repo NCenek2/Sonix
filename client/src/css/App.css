@@ -1,0 +1,40 @@
+:root {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  --dark-blue: #222e50;
+  --light-green: #439a86;
+  --tan: #bcd8c1;
+  --sandy: #e9d985;
+  --light-blue: #007bfff4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+div,
+span,
+a {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  min-height: 100vh;
+}
+
+body {
+  background-color: var(--light-blue);
+  color: whitesmoke;
+  max-width: 1024px;
+  margin-inline: auto;
+}
+
+i {
+  cursor: pointer;
+}
