@@ -19,7 +19,7 @@ const Header = () => {
         );
       case false:
         return (
-          <Link to="/" className="logo" style={{ textDecoration: "none" }}>
+          <Link to="/homePage" className="logo" style={{ textDecoration: "none" }}>
             Sonix
           </Link>
         );

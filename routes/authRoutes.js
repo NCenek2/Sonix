@@ -1,8 +1,12 @@
 const passport = require("passport");
+const requireLogin = require("../middlewares/requireLogin");
 
 module.exports = (app) => {
   app.get("/", (req, res) => {
-    res.redirect("/homePage");
+    console.log("redirecting to home");
+    if (!req.user) res.redirect("/homePage");
+    console.log("redirecting to posts");
+    res.redirect("/posts");
   });
 
   app.get(
@@ -24,8 +28,8 @@ module.exports = (app) => {
     res.send(req.user);
   });
 
-  app.get("/api/logout", (req, res) => {
+  app.get("/api/logout", requireLogin, (req, res) => {
     req.logout();
-    res.redirect("/");
+    res.redirect("/homePage");
   });
 };

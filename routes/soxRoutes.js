@@ -1,20 +1,21 @@
 const mongoose = require("mongoose");
 const Post = mongoose.model("posts");
+const requireLogin = require('../middlewares/requireLogin')
 
 module.exports = (app) => {
-  app.get("/api/sox/post/view/:postId", async (req, res) => {
+  app.get("/api/sox/post/view/:postId", requireLogin, async (req, res) => {
     const post = await Post.findById(req.params.postId);
     // console.log(post);
     res.send(post);
   });
 
-  app.get("/api/sox/post/edit/:postId", async (req, res) => {
+  app.get("/api/sox/post/edit/:postId", requireLogin, async (req, res) => {
     const post = await Post.findById(req.params.postId);
     // console.log(post);
     res.send(post);
   });
 
-  app.put("/api/sox/post/patch", async (req, res) => {
+  app.put("/api/sox/post/patch", requireLogin, async (req, res) => {
     const { message, postId } = req.body;
     const post = await Post.findById(postId);
     post.message = message;
@@ -24,7 +25,7 @@ module.exports = (app) => {
     res.send(post);
   });
 
-  app.post("/api/sox/create", async (req, res) => {
+  app.post("/api/sox/create", requireLogin, async (req, res) => {
     let post = await new Post({
       posterId: req.user.id,
       message: req.body.sox,
@@ -34,12 +35,12 @@ module.exports = (app) => {
     res.send(post);
   });
 
-  app.get("/api/sox/read", async (req, res) => {
+  app.get("/api/sox/read", requireLogin, async (req, res) => {
     let posts = await Post.find();
     res.send(posts);
   });
 
-  app.patch("/api/sox/like", async (req, res) => {
+  app.patch("/api/sox/like", requireLogin, async (req, res) => {
     console.log("THIS IS A LIKE");
     const { userId, postId } = req.body;
     let isLiked = await Post.findOne({
@@ -63,7 +64,7 @@ module.exports = (app) => {
     res.send(posts);
   });
 
-  app.patch("/api/sox/dislike", async (req, res) => {
+  app.patch("/api/sox/dislike", requireLogin, async (req, res) => {
     console.log("THIS IS A DISLIKE");
     const { userId, postId } = req.body;
     let isLiked = await Post.findOne({
@@ -87,7 +88,7 @@ module.exports = (app) => {
     res.send(posts);
   });
 
-  app.delete("/api/sox/delete", async (req, res) => {
+  app.delete("/api/sox/delete", requireLogin, async (req, res) => {
     await Post.findByIdAndDelete(req.body.soxId);
     let post = await Post.find();
     res.send(post);
