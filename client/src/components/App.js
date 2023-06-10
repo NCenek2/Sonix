@@ -24,7 +24,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Header />
-      <Route path="/" component={Home} exact />
+      <Route path="/homePage" component={Home} exact />
       <Route path="/posts" component={Posts} exact />
       <Route path="/post" component={ViewPost} />
       <Route path="/editPost" component={EditPost} />
