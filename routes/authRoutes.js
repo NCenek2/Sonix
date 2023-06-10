@@ -2,9 +2,7 @@ const passport = require("passport");
 
 module.exports = (app) => {
   app.get("/", (req, res) => {
-    res.send(
-      '<a href="/auth/google">Login</a><a href="/api/current_user">Check User</a>'
-    );
+    res.redirect("/");
   });
 
   app.get(

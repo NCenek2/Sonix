@@ -19,20 +19,23 @@ p,
 a,
 div,
 span,
-a {
+a,
+html,
+body {
   margin: 0;
   padding: 0;
 }
 
 html {
   min-height: 100vh;
+
 }
 
 body {
+  margin-inline: auto !important;
   background-color: var(--light-blue);
   color: whitesmoke;
   max-width: 1024px;
-  margin-inline: auto;
 }
 
 i {
