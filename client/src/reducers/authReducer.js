@@ -4,7 +4,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchUser = createAsyncThunk("/userData/reqStatus", async () => {
   try {
     const res = await axios.get("/api/current_user");
-    console.log("HERE IS RESPONSE", res);
     return res;
   } catch (err) {
     return err.message;

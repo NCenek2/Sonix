@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 const ViewPost = () => {
   const { post } = useSelector((state) => state.post);
-  console.log("VIEW POST", post);
   const handlePost = () => {
     switch (post) {
       case null:

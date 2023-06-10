@@ -22,13 +22,11 @@ export const readPosts = createAsyncThunk("/readSoxs", async () => {
 export const reactionPost = createAsyncThunk("/reactionSox", async (data) => {
   let { kind: reactionType } = data;
   delete data["kind"];
-  // console.log(reactionType, "after");
   try {
     const res = await axios.patch(`/api/sox/${reactionType}`, {
       postId: data.postId,
       userId: data.userId,
     });
-    console.log(res, "response");
     return res;
   } catch (e) {
     console.log("error: ", e);
@@ -87,10 +85,8 @@ export const postsSlice = createSlice({
       })
       .addCase(reactionPost.fulfilled, (state, action) => {
         state.status = "succeeded";
-        console.log(action.payload, "PAYLOAD FULFILLED");
-        // console.log(action.payload, "PAYLOAD reactionPost", action.payload.data);
+        // console.log(action.payload, "PAYLOAD FULFILLED");
         state.posts = [...action.payload.data] || [];
-        console.log("finished State posts", state.posts);
       })
       .addCase(reactionPost.rejected, (state, action) => {
         state.status = "failed";
@@ -102,8 +98,7 @@ export const postsSlice = createSlice({
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         state.status = "succeeded";
-        console.log(action.payload, "PAYLOAD DELETE");
-        // console.log(action.payload, "PAYLOAD deletePost", action.payload.data);
+        // console.log(action.payload, "PAYLOAD DELETE");
         state.posts = action.payload.data || [];
       })
       .addCase(deletePost.rejected, (state, action) => {

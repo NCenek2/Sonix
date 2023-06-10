@@ -25,7 +25,6 @@ const Post = ({ post }) => {
   };
 
   React.useState(() => {
-    console.log("Updating Time");
   }, [new Date().getMinutes()]);
 
   return (

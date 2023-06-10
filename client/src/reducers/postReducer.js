@@ -44,7 +44,7 @@ export const postSlice = createSlice({
       })
       .addCase(viewPost.fulfilled, (state, action) => {
         state.status = "succeeded";
-        console.log(action.payload.data, "viewPost payload");
+        // console.log(action.payload.data, "viewPost payload");
         // console.log(action.payload, "PAYLOAD viewPost", action.payload.data);
         state.post = action.payload.data || {};
       })

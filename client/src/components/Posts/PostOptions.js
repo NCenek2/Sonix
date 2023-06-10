@@ -15,7 +15,6 @@ const PostOptions = ({ postId, posterId, likes, dislikes }) => {
   };
 
   const handleDelete = () => {
-    console.log(`PostId: ${postId}`);
     dispatch(deletePost(postId));
   };
 
