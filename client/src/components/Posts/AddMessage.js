@@ -9,6 +9,7 @@ const AddMessage = () => {
   const handleSoxSend = () => {
     if (sox === "") return;
     dispatch(createPost(sox));
+    dispatch(readPosts());
     setSox("");
   };
 
