@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createPost } from "../../reducers/postsReducer";
+import { createPost, readPosts } from "../../reducers/postsReducer";
 const AddMessage = () => {
   const [sox, setSox] = React.useState("");
   const dispatch = useDispatch();
