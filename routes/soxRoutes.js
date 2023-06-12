@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Post = mongoose.model("posts");
-const requireLogin = require('../middlewares/requireLogin')
+const requireLogin = require("../middlewares/requireLogin");
 
 module.exports = (app) => {
   app.get("/api/sox/post/view/:postId", requireLogin, async (req, res) => {
@@ -19,9 +19,9 @@ module.exports = (app) => {
     const { message, postId } = req.body;
     const post = await Post.findById(postId);
     post.message = message;
-    (post.date = new Date().toISOString()),
-      // console.log(post, "patch");
-      await post.save();
+    post.date = new Date().toISOString();
+    // console.log(post, "patch");
+    await post.save();
     res.send(post);
   });
 

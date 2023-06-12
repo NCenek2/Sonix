@@ -1,7 +1,7 @@
 import React from "react";
 import { fetchUser } from "../reducers/authReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./Header";
 import HomePage from "./HomePage";
 import Posts from "./Posts/Posts";
@@ -20,13 +20,15 @@ const App = () => {
   }, [status, dispatch]);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Header />
-      <Route path="/homePage" component={HomePage} exact />
-      <Route path="/posts" component={Posts} exact />
-      <Route path="/post" component={ViewPost} />
-      <Route path="/editPost" component={EditPost} />
-      <Route path="/addMessage" component={AddMessage} exact />
+      <Routes>
+        <Route path="homePage" element={<HomePage />} exact />
+        <Route path="posts" element={<Posts />} exact />
+        <Route path="post" element={<ViewPost />} />
+        <Route path="editPost" element={<EditPost />} />
+        <Route path="addMessage" element={<AddMessage />} exact />
+      </Routes>
     </BrowserRouter>
   );
 };

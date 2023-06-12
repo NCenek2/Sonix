@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { patchPost } from "../../reducers/postReducer";
-import { readPosts } from "../../reducers/postsReducer"
+import { readPosts } from "../../reducers/postsReducer";
 import $ from "jquery";
 import M from "materialize-css";
 
@@ -19,7 +19,7 @@ const EditPost = () => {
   }, [uploadedSox]);
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const handleClick = (msg) => {
     if (sox == "") {
       setSox(msg);
@@ -30,7 +30,8 @@ const EditPost = () => {
   const handleSoxSend = () => {
     if (sox === "") return;
     dispatch(patchPost({ message: sox, postId: post._id }));
-    dispatch(readPosts())
+    navigate("/posts");
+    dispatch(readPosts());
     setSox("");
   };
 
@@ -59,11 +60,9 @@ const EditPost = () => {
               placeholder="Message"
               name={sox}
             ></textarea>
-            <Link to={sox !== "" && "/posts"}>
-              <button className="post-btn" onClick={() => handleSoxSend()}>
-                Upload
-              </button>
-            </Link>
+            <button className="post-btn" onClick={() => handleSoxSend()}>
+              Upload
+            </button>
           </div>
         );
     }

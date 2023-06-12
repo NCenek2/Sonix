@@ -1,14 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createPost, readPosts } from "../../reducers/postsReducer";
 const AddMessage = () => {
   const [sox, setSox] = React.useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSoxSend = () => {
     if (sox === "") return;
     dispatch(createPost(sox));
+    navigate("/posts");
     dispatch(readPosts());
     setSox("");
   };
@@ -29,11 +31,9 @@ const AddMessage = () => {
         placeholder="Message"
         name={sox}
       ></textarea>
-      <Link to={sox !== "" && "/posts"}>
-        <button className="post-btn" onClick={() => handleSoxSend()}>
-          Upload
-        </button>
-      </Link>
+      <button className="post-btn" onClick={() => handleSoxSend()}>
+        Upload
+      </button>
     </div>
   );
 };
