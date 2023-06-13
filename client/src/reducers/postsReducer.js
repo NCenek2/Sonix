@@ -33,6 +33,15 @@ export const reactionPost = createAsyncThunk("/reactionSox", async (data) => {
   }
 });
 
+export const patchPost = createAsyncThunk("/patchPost", async (data) => {
+  try {
+    const res = await axios.put(`/api/sox/post/patch`, data);
+    return res;
+  } catch (e) {
+    console.log("error: ", e);
+  }
+});
+
 export const deletePost = createAsyncThunk("/deleteSox", async (soxId) => {
   try {
     const res = await axios.delete("/api/sox/delete", { data: { soxId } });
@@ -89,6 +98,20 @@ export const postsSlice = createSlice({
         state.posts = [...action.payload.data] || [];
       })
       .addCase(reactionPost.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(patchPost.pending, (state, action) => {
+        state.status = "loading";
+        state.posts = null;
+      })
+      .addCase(patchPost.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        // console.log(action.payload.data, "patchPost payload");
+        // console.log(action.payload, "PAYLOAD patchPost", action.payload.data);
+        state.posts = action.payload.data || {};
+      })
+      .addCase(patchPost.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })

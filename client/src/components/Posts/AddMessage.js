@@ -11,7 +11,6 @@ const AddMessage = () => {
     if (sox === "") return;
     dispatch(createPost(sox));
     navigate("/posts");
-    dispatch(readPosts());
     setSox("");
   };
 

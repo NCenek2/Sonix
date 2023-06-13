@@ -5,13 +5,12 @@ import { readPosts } from "../../reducers/postsReducer";
 
 const Posts = () => {
   const [timeTrigger, setTimeTrigger] = React.useState(false);
-
+  
   const { posts, status } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
 
-  const orderedPosts = posts
-    .slice()
-    .sort((a, b) => b.date.localeCompare(a.date));
+  const orderedPosts =
+    posts && posts.slice().sort((a, b) => b.date.localeCompare(a.date));
 
   React.useState(() => {
     if (status === "idle") {
@@ -28,9 +27,12 @@ const Posts = () => {
 
   return (
     <div className="posts">
-      {orderedPosts.length == 0
-        ? ""
-        : orderedPosts.map((post, index) => <Post key={index} post={post} />)}
+      {orderedPosts &&
+        (orderedPosts.length == 0
+          ? ""
+          : orderedPosts.map((post, index) => (
+              <Post key={index} post={post} />
+            )))}
     </div>
   );
 };

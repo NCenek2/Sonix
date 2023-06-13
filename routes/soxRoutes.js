@@ -20,9 +20,10 @@ module.exports = (app) => {
     const post = await Post.findById(postId);
     post.message = message;
     post.date = new Date().toISOString();
-    // console.log(post, "patch");
     await post.save();
-    res.send(post);
+    let posts = await Post.find();
+    // console.log(posts);
+    res.send(posts);
   });
 
   app.post("/api/sox/create", requireLogin, async (req, res) => {
@@ -37,6 +38,7 @@ module.exports = (app) => {
 
   app.get("/api/sox/read", requireLogin, async (req, res) => {
     let posts = await Post.find();
+    // console.log(posts);
     res.send(posts);
   });
 
@@ -60,7 +62,7 @@ module.exports = (app) => {
     }
 
     let posts = await Post.find();
-    console.log(posts);
+    // console.log(posts);
     res.send(posts);
   });
 
@@ -84,13 +86,14 @@ module.exports = (app) => {
     }
 
     let posts = await Post.find();
-    console.log(posts);
+    // console.log(posts);
     res.send(posts);
   });
 
   app.delete("/api/sox/delete", requireLogin, async (req, res) => {
     await Post.findByIdAndDelete(req.body.soxId);
-    let post = await Post.find();
-    res.send(post);
+    let posts = await Post.find();
+    // console.log(posts);
+    res.send(posts);
   });
 };

@@ -19,15 +19,6 @@ export const editPost = createAsyncThunk("/editPost", async (postId) => {
   }
 });
 
-export const patchPost = createAsyncThunk("/patchPost", async (data) => {
-  try {
-    const res = await axios.put(`/api/sox/post/patch`, data);
-    return res;
-  } catch (e) {
-    console.log("error: ", e);
-  }
-});
-
 export const postSlice = createSlice({
   name: "post",
   initialState: {
@@ -63,20 +54,6 @@ export const postSlice = createSlice({
         state.post = action.payload.data || {};
       })
       .addCase(editPost.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
-      })
-      .addCase(patchPost.pending, (state, action) => {
-        state.status = "loading";
-        state.post = null;
-      })
-      .addCase(patchPost.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        // console.log(action.payload.data, "patchPost payload");
-        // console.log(action.payload, "PAYLOAD patchPost", action.payload.data);
-        state.post = action.payload.data || {};
-      })
-      .addCase(patchPost.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });

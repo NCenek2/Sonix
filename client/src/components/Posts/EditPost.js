@@ -2,8 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { patchPost } from "../../reducers/postReducer";
-import { readPosts } from "../../reducers/postsReducer";
+import { patchPost } from "../../reducers/postsReducer";
 import $ from "jquery";
 import M from "materialize-css";
 
@@ -31,7 +30,6 @@ const EditPost = () => {
     if (sox === "") return;
     dispatch(patchPost({ message: sox, postId: post._id }));
     navigate("/posts");
-    dispatch(readPosts());
     setSox("");
   };
 
