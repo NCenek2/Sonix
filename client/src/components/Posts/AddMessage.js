@@ -1,15 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { createPost, readPosts } from "../../reducers/postsReducer";
+import { createPost } from "../../reducers/postsReducer";
 const AddMessage = () => {
   const [sox, setSox] = React.useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSoxSend = () => {
+  const handleSoxSend = async () => {
     if (sox === "") return;
-    dispatch(createPost(sox));
+    await dispatch(createPost(sox));
     navigate("/posts");
     setSox("");
   };

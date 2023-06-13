@@ -33,7 +33,8 @@ module.exports = (app) => {
       date: new Date().toISOString(),
       posterName: req.user.name,
     }).save();
-    res.send(post);
+    let posts = await Post.find();
+    res.send(posts);
   });
 
   app.get("/api/sox/read", requireLogin, async (req, res) => {

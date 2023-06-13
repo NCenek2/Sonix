@@ -82,7 +82,7 @@ export const postsSlice = createSlice({
       .addCase(createPost.fulfilled, (state, action) => {
         state.status = "succeeded";
         // console.log(action.payload, "PAYLOAD createPost", action.payload.data);
-        state.posts = [...state.posts, action.payload.data] || [];
+        state.posts = action.payload.data || [];
       })
       .addCase(createPost.rejected, (state, action) => {
         state.status = "failed";
@@ -109,7 +109,7 @@ export const postsSlice = createSlice({
         state.status = "succeeded";
         // console.log(action.payload.data, "patchPost payload");
         // console.log(action.payload, "PAYLOAD patchPost", action.payload.data);
-        state.posts = action.payload.data || {};
+        state.posts = action.payload.data || [];
       })
       .addCase(patchPost.rejected, (state, action) => {
         state.status = "failed";
