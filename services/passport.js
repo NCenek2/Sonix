@@ -9,6 +9,7 @@ passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser(async (id, done) => {
   let user = await User.findById(id);
   done(null, user);
+  // Case to add where cookie is tampered with? If not user?
 });
 
 passport.use(
@@ -22,15 +23,15 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       let user = await User.findOne({ googleId: profile.id });
       if (!user) {
-        console.log("user not found");
+        console.log("User not found");
         user = await new User({
           googleId: profile.id,
           name: profile._json.name || "Unknown",
+          // Should i do null checking on profile?._json?.name ??
         }).save();
       } else {
-        console.log("User Already Exists");
+        console.log("User already exists");
       }
-      console.log("finished with google, to callback");
       done(null, user);
     }
   )

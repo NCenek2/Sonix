@@ -1,14 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { RootState } from "../../reducers";
 
 const ViewPost = () => {
-  const { post } = useSelector((state) => state.post);
+  const { post } = useSelector((state: RootState) => state.post);
   const handlePost = () => {
     switch (post) {
       case null:
         return <div></div>;
-      case false:
-        return <div>Can Find Post</div>;
       default:
         const { message, likes, dislikes, posterName } = post;
         return (

@@ -1,20 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { createPost } from "../../reducers/postsReducer";
+import { useAppDispatch } from "../../reducers";
 const AddMessage = () => {
-  const [sox, setSox] = React.useState("");
-  const dispatch = useDispatch();
+  const [sox, setSox] = useState("");
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleSoxSend = async () => {
+  const handleSoxPost = async () => {
     if (sox === "") return;
     await dispatch(createPost(sox));
     navigate("/posts");
     setSox("");
   };
 
-  const handleSoxUpdate = (e) => {
+  const handleSoxUpdate = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setSox(value);
   };
@@ -23,14 +23,13 @@ const AddMessage = () => {
     <div className="message-container">
       <textarea
         id="textarea1"
-        class="materialize-textarea white-text"
+        className="materialize-textarea white-text"
         value={sox}
-        type="text"
         onChange={handleSoxUpdate}
         placeholder="Message"
         name={sox}
       ></textarea>
-      <button className="post-btn" onClick={() => handleSoxSend()}>
+      <button className="post-btn" onClick={handleSoxPost}>
         Upload
       </button>
     </div>

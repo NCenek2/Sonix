@@ -2,12 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "../css/Header.css";
-import { useDispatch } from "react-redux";
+import { RootState } from "../reducers";
 
 const Header = () => {
-  const { data } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-
+  const { data } = useSelector((state: RootState) => state.auth);
 
   const handleLogo = () => {
     switch (data) {
@@ -19,17 +17,13 @@ const Header = () => {
         );
       case false:
         return (
-          <Link to="/homePage" className="logo" style={{ textDecoration: "none" }}>
+          <Link to="/" className="logo" style={{ textDecoration: "none" }}>
             Sonix
           </Link>
         );
       default:
         return (
-          <Link
-            to="/posts"
-            className="logo"
-            style={{ textDecoration: "none" }}
-          >
+          <Link to="/posts" className="logo" style={{ textDecoration: "none" }}>
             Sonix
           </Link>
         );
@@ -39,7 +33,6 @@ const Header = () => {
   const handleLoggedin = () => {
     switch (data) {
       case null:
-        return "";
       case false:
         return (
           <a href="/auth/google">

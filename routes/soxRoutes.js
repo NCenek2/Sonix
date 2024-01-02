@@ -5,13 +5,11 @@ const requireLogin = require("../middlewares/requireLogin");
 module.exports = (app) => {
   app.get("/api/sox/post/view/:postId", requireLogin, async (req, res) => {
     const post = await Post.findById(req.params.postId);
-    // console.log(post);
     res.send(post);
   });
 
   app.get("/api/sox/post/edit/:postId", requireLogin, async (req, res) => {
     const post = await Post.findById(req.params.postId);
-    // console.log(post);
     res.send(post);
   });
 
@@ -22,7 +20,6 @@ module.exports = (app) => {
     post.date = new Date().toISOString();
     await post.save();
     let posts = await Post.find();
-    // console.log(posts);
     res.send(posts);
   });
 
@@ -39,12 +36,10 @@ module.exports = (app) => {
 
   app.get("/api/sox/read", requireLogin, async (req, res) => {
     let posts = await Post.find();
-    // console.log(posts);
     res.send(posts);
   });
 
   app.patch("/api/sox/like", requireLogin, async (req, res) => {
-    console.log("THIS IS A LIKE");
     const { userId, postId } = req.body;
     let isLiked = await Post.findOne({
       $and: [{ _id: postId }, { likes: { $in: [userId] } }],
@@ -63,12 +58,10 @@ module.exports = (app) => {
     }
 
     let posts = await Post.find();
-    // console.log(posts);
     res.send(posts);
   });
 
   app.patch("/api/sox/dislike", requireLogin, async (req, res) => {
-    console.log("THIS IS A DISLIKE");
     const { userId, postId } = req.body;
     let isLiked = await Post.findOne({
       $and: [{ _id: postId }, { likes: { $in: [userId] } }],
@@ -87,14 +80,12 @@ module.exports = (app) => {
     }
 
     let posts = await Post.find();
-    // console.log(posts);
     res.send(posts);
   });
 
   app.delete("/api/sox/delete", requireLogin, async (req, res) => {
     await Post.findByIdAndDelete(req.body.soxId);
     let posts = await Post.find();
-    // console.log(posts);
     res.send(posts);
   });
 };

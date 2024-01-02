@@ -1,37 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../css/Post.css";
 import { parseISO, formatDistanceToNow } from "date-fns";
 import PostOptions from "./PostOptions";
 import { viewPost } from "../../reducers/postReducer";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { PostType } from "../../types";
+import { useAppDispatch } from "../../reducers";
 
-const Post = ({ post }) => {
-  const {
-    message,
-    posterId,
-    _id: postId,
-    date,
-    posterName: name,
-    likes,
-    dislikes,
-  } = post;
+const Post = ({
+  message,
+  posterId,
+  _id,
+  date,
+  posterName: name,
+  likes,
+  dislikes,
+}: PostType) => {
   const parsedIso = parseISO(date);
   const timePeriod = formatDistanceToNow(parsedIso);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handlePost = () => {
-    dispatch(viewPost({ postId }));
+    dispatch(viewPost(_id));
   };
-
-  React.useState(() => {
-  }, [new Date().getMinutes()]);
 
   return (
     <div className="post">
       <Link
         className="post-message white-text"
-        onClick={() => handlePost()}
+        onClick={handlePost}
         to={"/post"}
       >
         {message.length >= 250 ? message.substring(0, 250) + "..." : message}
@@ -40,7 +37,7 @@ const Post = ({ post }) => {
       <p>{timePeriod} ago</p>
       <PostOptions
         posterId={posterId}
-        postId={postId}
+        _id={_id}
         likes={likes}
         dislikes={dislikes}
       />

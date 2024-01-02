@@ -1,43 +1,49 @@
 import React from "react";
 import { reactionPost, deletePost } from "../../reducers/postsReducer";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { editPost } from "../../reducers/postReducer";
+import { PostType, UserType } from "../../types";
+import { useAppDispatch, RootState } from "../../reducers";
 
-const PostOptions = ({ postId, posterId, likes, dislikes }) => {
-  const {
-    data: { _id: userId },
-  } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+const PostOptions = ({
+  _id: postId,
+  posterId,
+  likes,
+  dislikes,
+}: Partial<PostType>) => {
+  const { data } = useSelector((state: RootState) => state.auth);
+  const userId = (data as UserType)?._id;
+  const dispatch = useAppDispatch();
 
   const handlePost = () => {
+    if (!postId) return;
     dispatch(editPost(postId));
   };
 
   const handleDelete = () => {
-    dispatch(deletePost(postId));
+    dispatch(deletePost());
   };
 
-  const likedStyle = likes.includes(userId)
-    ? {
-        color: "blue",
-      }
-    : null;
-  const dislikedStyle = dislikes.includes(userId)
-    ? {
-        color: "red",
-      }
-    : null;
+  const likedStyle =
+    likes !== undefined && likes.includes(userId)
+      ? {
+          color: "blue",
+        }
+      : null;
+  const dislikedStyle =
+    dislikes !== undefined && dislikes.includes(userId)
+      ? {
+          color: "red",
+        }
+      : null;
 
   const handleUserOptions = () => {
     if (posterId == userId) {
       return (
         <React.Fragment>
           <Link className="white-text" to={"/editPost"}>
-            <i
-              className="material-icons color-green"
-              onClick={() => handlePost()}
-            >
+            <i className="material-icons color-green" onClick={handlePost}>
               edit
             </i>
           </Link>
@@ -45,9 +51,7 @@ const PostOptions = ({ postId, posterId, likes, dislikes }) => {
           <i
             className="material-icons"
             // style={dislikes && userId in dislikes && likedStyle}
-            onClick={() => {
-              handleDelete();
-            }}
+            onClick={handleDelete}
           >
             delete
           </i>
@@ -56,7 +60,8 @@ const PostOptions = ({ postId, posterId, likes, dislikes }) => {
     }
   };
 
-  const handleReaction = (kind) => {
+  const handleReaction = (kind: string) => {
+    if (postId === undefined) return;
     let output = {
       postId,
       userId,
@@ -69,14 +74,14 @@ const PostOptions = ({ postId, posterId, likes, dislikes }) => {
     <div className="post-icons">
       <i
         className="material-icons"
-        style={likedStyle}
+        style={likedStyle ?? {}}
         onClick={() => handleReaction("like")}
       >
         thumb_up
       </i>
       <i
         className="material-icons"
-        style={dislikedStyle}
+        style={dislikedStyle ?? {}}
         onClick={() => handleReaction("dislike")}
       >
         thumb_down

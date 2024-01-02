@@ -1,39 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { patchPost } from "../../reducers/postsReducer";
+import { RootState, useAppDispatch } from "../../reducers";
 import $ from "jquery";
 import M from "materialize-css";
 
 const EditPost = () => {
-  const { post } = useSelector((state) => state.post);
-  const [sox, setSox] = React.useState("");
-  const [uploadedSox, setUploadedSox] = React.useState(false);
+  const { post } = useSelector((state: RootState) => state.post);
+  const dispatch = useAppDispatch();
 
-  React.useEffect(() => {
+  const [sox, setSox] = useState("");
+  const [uploadedSox, setUploadedSox] = useState(false);
+
+  useEffect(() => {
     if (uploadedSox) {
       M.textareaAutoResize($("#textarea1"));
     }
   }, [uploadedSox]);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleClick = (msg) => {
-    if (sox == "") {
+  const handleClick = (msg: string) => {
+    if (sox === "") {
       setSox(msg);
       setUploadedSox(true);
     }
   };
 
-  const handleSoxSend = () => {
-    if (sox === "") return;
+  const handleSoxPatch = () => {
+    if (sox === "" || post === null) return;
     dispatch(patchPost({ message: sox, postId: post._id }));
     navigate("/posts");
     setSox("");
   };
 
-  const handleSoxUpdate = (e) => {
+  const handleSoxUpdate = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setSox(value);
   };
@@ -42,8 +43,6 @@ const EditPost = () => {
     switch (post) {
       case null:
         return <div></div>;
-      case false:
-        return <div>Cant Find Post</div>;
       default:
         const { message } = post;
         if (!sox && !uploadedSox) handleClick(message);
@@ -53,12 +52,11 @@ const EditPost = () => {
               id="textarea1"
               className="materialize-textarea white-text"
               value={sox}
-              type="text"
               onChange={handleSoxUpdate}
               placeholder="Message"
               name={sox}
             ></textarea>
-            <button className="post-btn" onClick={() => handleSoxSend()}>
+            <button className="post-btn" onClick={handleSoxPatch}>
               Upload
             </button>
           </div>

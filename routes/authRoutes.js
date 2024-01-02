@@ -2,13 +2,6 @@ const passport = require("passport");
 const requireLogin = require("../middlewares/requireLogin");
 
 module.exports = (app) => {
-  app.get("/", (req, res) => {
-    console.log("redirecting to home");
-    if (!req.user) res.redirect("/homePage");
-    console.log("redirecting to posts");
-    res.redirect("/posts");
-  });
-
   app.get(
     "/auth/google",
     passport.authenticate("google", {
@@ -30,6 +23,6 @@ module.exports = (app) => {
 
   app.get("/api/logout", requireLogin, (req, res) => {
     req.logout();
-    res.redirect("/homePage");
+    res.redirect("/");
   });
 };
