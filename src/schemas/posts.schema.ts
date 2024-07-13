@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
+import * as mongoose from 'mongoose';
 
-const SoxSchema = new Schema({
+export const PostsSchema = new mongoose.Schema({
   posterId: String,
   message: String,
   date: String,
@@ -16,8 +15,6 @@ const SoxSchema = new Schema({
   },
   parentId: {
     type: String,
-    default: "",
+    default: '',
   },
 });
-
-mongoose.model("posts", SoxSchema);

@@ -22,7 +22,8 @@ const PostOptions = ({
   };
 
   const handleDelete = () => {
-    dispatch(deletePost());
+    if (!postId) return;
+    dispatch(deletePost(postId));
   };
 
   const likedStyle =

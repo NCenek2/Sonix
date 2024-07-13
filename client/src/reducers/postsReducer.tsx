@@ -19,6 +19,7 @@ export const readPosts = createAsyncThunk(
   async (): Promise<PostType[]> => {
     try {
       const res = await axios.get("/api/sox/read");
+      console.log(res.data);
       return res.data;
     } catch (err) {
       throw err;
@@ -69,8 +70,9 @@ export const patchPost = createAsyncThunk(
 
 export const deletePost = createAsyncThunk(
   "/deleteSox",
-  async (soxId): Promise<PostType[]> => {
+  async (soxId: string): Promise<PostType[]> => {
     try {
+      console.log(soxId, "SoxId");
       const res = await axios.delete("/api/sox/delete", {
         data: { soxId },
       });

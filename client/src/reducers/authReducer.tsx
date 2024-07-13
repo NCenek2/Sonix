@@ -7,6 +7,7 @@ export const fetchUser = createAsyncThunk(
   async (): Promise<UserType> => {
     try {
       const res = await axios.get("/api/current_user");
+      console.log("FETCHING USER", res.data, "END");
       return res.data;
     } catch (err) {
       throw err;
@@ -34,6 +35,7 @@ export const authSlice = createSlice({
     builder
       .addCase(fetchUser.pending, (state, action) => {
         state.status = "pending";
+        console.log("FETCHING USER");
         state.data = null;
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
