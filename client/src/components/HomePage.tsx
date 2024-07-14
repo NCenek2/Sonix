@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../reducers';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+  const { data } = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (data) navigate('/posts');
+  }, [data, navigate]);
+
   return (
     <div className="homepage-container">
       <h4>About</h4>

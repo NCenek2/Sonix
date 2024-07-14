@@ -24,9 +24,9 @@ export class AuthController {
   @Get('auth/google/callback')
   @UseGuards(GoogleOauthGuard)
   async googleAuthRedirect(@Res() res: Response) {
-    return res.status(HttpStatus.FOUND).redirect('/posts');
+    return res.status(HttpStatus.FOUND).redirect('/');
   }
-
+  @Public()
   @Get('api/logout')
   logout(@Req() req: Request, @Res() res: Response) {
     this.authService.logout(req);
